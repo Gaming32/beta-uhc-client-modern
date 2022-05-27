@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "uhc-client",
+  "version": "${version}",
+
+  "name": "UHC Client",
+  "description": "",
+  "authors": [
+    "Gaming32"
+  ],
+
+  "license": "MIT",
+  "icon": "assets/beta-uhc-client-modern/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "io.github.gaming32.betauhcclientmodern.UHCClientModernMod"
+    ]
+  },
+  "mixins": [
+    "beta-uhc-client-modern.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "minecraft": ">=1.18.2",
+    "java": ">=17",
+    "fabric": "*"
+  },
+  "suggests": {
+  }
+}
