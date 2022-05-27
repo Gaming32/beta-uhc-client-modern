@@ -8,6 +8,8 @@
   "client": [
     "MixinAbstractClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
+    "MixinEntity",
+    "MixinMinecraftClient",
     "MixinPlayerEntity",
     "MixinPlayerListEntry",
     "MixinTeleportSpectatorMenu",

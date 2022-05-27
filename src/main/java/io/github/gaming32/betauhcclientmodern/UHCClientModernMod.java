@@ -18,7 +18,6 @@ public class UHCClientModernMod implements ModInitializer {
 
     public static final Set<String> spectatingPlayers = new HashSet<>();
     public static final Map<String, Integer> glowingEffects = new HashMap<>();
-    public static final Map<Integer, String> mapIdToPlayerName = new HashMap<>();
     public static final Map<String, String> displayNames = new HashMap<>();
 
     private static CustomPacketManager packetManager;
@@ -59,14 +58,7 @@ public class UHCClientModernMod implements ModInitializer {
                 border.interpolateSize(border.getSize(), worldBorderDest * 2, worldBorderTicksRemaining * 50);
                 break;
             }
-            case "mapplayer": {
-                int midIndex = data.indexOf(' ');
-                mapIdToPlayerName.put(
-                    Integer.valueOf(data.substring(0, midIndex), 16),
-                    data.substring(midIndex + 1)
-                );
-                break;
-            }
+            case "mapplayer": break;
             case "glowing": {
                 int midIndex = data.indexOf(' ');
                 glowingEffects.put(
