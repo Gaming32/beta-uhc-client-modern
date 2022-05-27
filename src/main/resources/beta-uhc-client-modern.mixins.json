@@ -6,7 +6,12 @@
   "mixins": [
   ],
   "client": [
-    "MixinClientPlayNetworkHandler"
+    "MixinAbstractClientPlayerEntity",
+    "MixinClientPlayNetworkHandler",
+    "MixinPlayerEntity",
+    "MixinPlayerListEntry",
+    "MixinTeleportSpectatorMenu",
+    "MixinTeleportToSpecificPlayerSpectatorCommand"
   ],
   "injectors": {
     "defaultRequire": 1

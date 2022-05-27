@@ -17,7 +17,7 @@ public class MixinClientPlayNetworkHandler {
         cancellable = true
     )
     private void onGameMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
-        if (UHCClientModernMod.getPacketManager().handleMessage(packet.getMessage().asString())) {
+        if (UHCClientModernMod.getPacketManager().handleMessage(packet.getMessage().getString())) {
             ci.cancel();
         }
     }

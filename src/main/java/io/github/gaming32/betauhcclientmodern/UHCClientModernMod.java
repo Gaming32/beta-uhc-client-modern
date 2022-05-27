@@ -12,6 +12,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.border.WorldBorder;
 
+@SuppressWarnings("resource")
 public class UHCClientModernMod implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("beta-uhc-client-modern");
 
@@ -44,14 +45,12 @@ public class UHCClientModernMod implements ModInitializer {
                 break;
             }
             case "worldborder": {
-                @SuppressWarnings("resource")
                 WorldBorder border = MinecraftClient.getInstance().world.getWorldBorder();
                 border.setCenter(0, 0);
                 border.setSize(CustomPacketManager.stringToDouble(data) * 2);
                 break;
             }
             case "worldborderinterp": {
-                @SuppressWarnings("resource")
                 WorldBorder border = MinecraftClient.getInstance().world.getWorldBorder();
                 border.setCenter(0, 0);
                 int midIndex = data.indexOf(' ');
@@ -87,7 +86,7 @@ public class UHCClientModernMod implements ModInitializer {
             case "displayname": {
                 int midIndex = data.indexOf(' ');
                 if (midIndex == -1) {
-                    displayNames.remove(data);
+                    displayNames.put(data, data);
                 } else {
                     displayNames.put(data.substring(0, midIndex), data.substring(midIndex + 1));
                 }
@@ -95,6 +94,10 @@ public class UHCClientModernMod implements ModInitializer {
             }
             case "cleardisplaynames": {
                 displayNames.clear();
+                break;
+            }
+            case "removeplayer": {
+                displayNames.remove(data);
                 break;
             }
             default:

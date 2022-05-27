@@ -3,11 +3,11 @@ package io.github.gaming32.betauhcclientmodern;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 
+@SuppressWarnings("resource")
 public final class CustomPacketManager {
     public CustomPacketManager() {
     }
 
-    @SuppressWarnings("resource")
     private static ClientPlayerEntity getClientPlayer() {
         return MinecraftClient.getInstance().player;
     }
