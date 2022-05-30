@@ -4,12 +4,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LightningEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.border.WorldBorder;
 
 @SuppressWarnings("resource")
@@ -30,6 +36,7 @@ public class UHCClientModernMod implements ModInitializer {
 
     public static void handleCustomPacket(String packetType, String data) {
         LOGGER.info(packetType + ' ' + data);
+        packetTypeSwitch:
         switch (packetType) {
             case "ping": {
                 packetManager.sendPacket("pong");
@@ -90,6 +97,28 @@ public class UHCClientModernMod implements ModInitializer {
             }
             case "removeplayer": {
                 displayNames.remove(data);
+                break;
+            }
+            case "lightning": {
+                // Lightning sounds are more server-side in this version, being controlled by ViaProxy.
+                // This makes this more complicated and lower quality.
+                for (Entity entity : MinecraftClient.getInstance().world.getEntities()) {
+                    if (entity instanceof LightningEntity) {
+                        break packetTypeSwitch;
+                    }
+                }
+                ThreadLocalRandom tlr = ThreadLocalRandom.current();
+                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+                MinecraftClient.getInstance().world.playSound(
+                    player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER,
+                    10000.0f, 0.8f + tlr.nextFloat() * 0.2f, false
+                );
+                MinecraftClient.getInstance().world.playSound(
+                    player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.WEATHER,
+                    2.0f, 0.5f + tlr.nextFloat() * 0.2f, false
+                );
                 break;
             }
             default:
